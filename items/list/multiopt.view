@@ -1,0 +1,83 @@
+#import "skin://theme.view"
+
+$view.page = 0;
+
+widget(deck, {
+
+  widget(container_x, {
+
+    style: "ListItemFocusable";
+
+    onEvent(activate, {
+      $view.page = 1;
+    });
+
+    widget(icon, {
+      source: "dataroot://resources/svg/List.svg";
+      ListItemIconStyle();
+    });
+
+    widget(label, {
+      caption: fmt("%s: %s",
+                   $self.metadata.title,
+                   $self.current.title);
+
+      ListItemLabelStyle();
+    });
+  });
+
+
+  widget(container_y, {
+    style: "ListMultioptContainer";
+
+    onEvent(cancel, { $view.page = 0; });
+    onEvent(back,   { $view.page = 0; });
+
+    widget(container_x, {
+
+      widget(icon, {
+        source: "dataroot://resources/svg/ArrowDown.svg";
+        style: "list-item-icon";
+      });
+
+      widget(label, {
+        caption: $self.metadata.title;
+      });
+    });
+
+    widget(container_z, {
+
+      widget(quad, {
+        zoffset: -400;
+        color: 0;
+        alpha: 0.4;
+      });
+
+      widget(list_y, {
+
+        cloner($self.options, container_x, {
+
+          style: "MultioptItemFocusable";
+
+          onEvent(activate, {
+            propSelect($self);
+            $view.page = 0;
+          });
+
+          widget(icon, {
+            source: "dataroot://resources/svg/Check.svg";
+            ListItemIconStyle();
+            alpha: propName($self) == $parent.value;
+          });
+
+          widget(label, {
+            caption: $self.title;
+            ListItemLabelStyle();
+          });
+        });
+      });
+    });
+  });
+
+  page: $view.page;
+});

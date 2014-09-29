@@ -1,0 +1,17 @@
+#import "skin://theme.view"
+
+widget(container_y, {
+
+  padding: 0.3em;
+
+  widget(label, {
+    filterConstraintX: true;
+    caption: $self.metadata.title;
+    ListSeparatorLabelStyle();
+  });
+  widget(quad, {
+    height: 1;
+    alpha: 0.5;
+    additive: true;
+  });
+});

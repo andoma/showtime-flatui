@@ -1,0 +1,33 @@
+#import "skin://theme.view"
+
+
+widget(container_x, {
+
+  style: "ListItemFocusable";
+
+  onEvent(activate, navOpen($self.url));
+
+  widget(icon, {
+    source: $self.metadata.icon ??
+      translate($self.subtype,
+		"dataroot://resources/svg/Settings.svg",
+		"sound", "dataroot://resources/svg/Sound.svg",
+		"audio", "dataroot://resources/svgs/Music.svg",
+		"video", "dataroot://resources/svg/Movie.svg",
+		"bookmark", "dataroot://resources/svg/Bookmark.svg",
+		"display", "dataroot://resources/svg/Display.svg",
+		"search", "dataroot://resources/svg/Search.svg",
+		"keymap", "dataroot://resources/svg/Keyboard.svg",
+		"subtitle", "dataroot://resources/svg/Script.svg",
+                "plugin", "dataroot://resources/svg/Plugin.svg"
+	       );
+    ListItemIconStyle();
+  });
+
+  widget(label, {
+    filterConstraintX: true;
+    caption: $self.metadata.title;
+
+    ListItemLabelStyle();
+  });
+});

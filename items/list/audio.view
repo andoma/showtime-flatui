@@ -1,0 +1,40 @@
+#import "skin://theme.view"
+
+widget(container_x, {
+  style: "ListItemFocusable";
+
+  onEvent(activate, playTrackFromSource($self, $parent.model));
+
+  widget(icon, {
+    source: translate($self.media.playstatus,
+                      "dataroot://resources/svg/Music.svg",
+		      "play", "dataroot://resources/svg/Play.svg",
+		      "pause", "dataroot://resources/svg/Pause.svg");
+
+    ListItemIconStyle();
+  });
+
+  widget(label, {
+    filterConstraintX: true;
+    caption: $self.metadata.title;
+
+    ListItemLabelStyle();
+  });
+
+  widget(label, {
+    filterConstraintX: true;
+    caption: $self.metadata.artist;
+
+    ListItemLabelStyle();
+  });
+
+  widget(label, {
+    width: $ui.size * 3;
+    align: right;
+    caption: value2duration($self.metadata.duration);
+
+    color: !isFocused();
+    shadow: !isFocused();
+  });
+
+});

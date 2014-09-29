@@ -1,0 +1,18 @@
+#define ListItemIconStyle() {
+  color: iir(!isFocused(), 4);
+  shadow: iir(!isFocused(), 4);
+  style: "ListIcon";
+}
+
+#define ListItemLabelStyle() {
+  color: iir(!isFocused(), 4);
+  shadow: iir(!isFocused(), 4);
+  size: 1.25em;
+}
+
+#define ListSeparatorLabelStyle() {
+  shadow: true;
+  size: 1.5em;
+  bold: true;
+  color: 0.85;
+}

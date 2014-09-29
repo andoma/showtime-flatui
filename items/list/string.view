@@ -1,0 +1,24 @@
+#import "skin://theme.view"
+
+
+widget(container_x, {
+  style: "ListItemFocusable";
+
+  onEvent(activate, deliverEvent($self.action));
+
+  widget(icon, {
+    ListItemIconStyle();
+  });
+
+  widget(label, {
+    filterConstraintX: true;
+    caption: $self.metadata.title;
+    ListItemLabelStyle();
+  });
+
+  widget(label, {
+    filterConstraintX: true;
+    caption: $self.value;
+    ListItemLabelStyle();
+  });
+});

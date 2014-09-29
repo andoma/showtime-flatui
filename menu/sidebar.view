@@ -1,0 +1,118 @@
+#import "skin://theme.view"
+
+#define SIDEBAR_SIZE() { 18 em }
+
+#define SIDEBAR_ACTION(CAPTION, ICON, EVENT) {
+  widget(container_x, {
+    style: "ListItemFocusable";
+
+    onEvent(activate, EVENT);
+
+    widget(icon, {
+      source: ICON;
+      ListItemIconStyle();
+    });
+
+    widget(label, {
+      filterConstraintX: true;
+      caption: CAPTION;
+      ListItemLabelStyle();
+    });
+  });
+}
+
+#define SEPARATOR(HIDDEN=false) {
+  widget(quad, {
+    hidden: HIDDEN;
+    height: 1;
+    color: 0.5;
+    additive: true;
+  });
+}
+
+
+widget(container_z, {
+
+  onEvent(Left, event(back), isFocused());
+
+  alpha: $view.sidebarFocused;
+  width: $view.sidebarFocused * SIDEBAR_SIZE();
+  $view.sidebarFocused = iir(delay(isFocused(), 0, 0.25), 4);
+
+  widget(quad, {
+    zoffset: -500;
+    color: 0;
+    alpha: 0.2;
+  });
+
+  widget(container_x, {
+    filterConstraintX: true;
+    layoutFixedWidth: true;
+    width: SIDEBAR_SIZE();
+
+    padding: 1em;
+
+    widget(list_y, {
+      padding: 0.3em;
+
+      id: "sidebar";
+
+      autoFocusLimit: true;
+
+      spacing: 0.5em;
+
+
+      // --------------------------------------
+      // --- List item styles
+      // --------------------------------------
+
+      style(ListItemFocusable, {
+        focusable: true;
+      });
+
+      style(ListIcon, {
+        width: 1.5em;
+        align: center;
+      });
+
+      style(ListMultioptContainer, {
+        height: 5 * 1em;
+      });
+
+      style(MultioptItemFocusable, {
+        focusable: true;
+      });
+
+      widget(loader, {
+        hidden: count($clone.settings.options) < 2;
+        self: $clone.settings;
+        source: "skin://items/list/multiopt.view";
+      });
+
+      SEPARATOR();
+
+
+      // --------------------------------------
+      // Items from page model
+      // --------------------------------------
+
+      cloner($self.model.options, loader, {
+        time: 0.1;
+        effect: blend;
+	alt: "skin://items/list//default.view";
+	source: "skin://items/list/" + $self.type + ".view";
+      });
+
+      SEPARATOR();
+
+      // --------------------------------------
+      // Generic items
+      // --------------------------------------
+      SIDEBAR_ACTION(_("Home"), "dataroot://resources/svg/Home.svg",
+                     navOpen("page:home"));
+      SIDEBAR_ACTION(_("Playqueue"), "dataroot://resources/svg/List.svg",
+                     navOpen("playqueue:"));
+
+    });
+  });
+});

@@ -1,0 +1,21 @@
+#import "skin://theme.view"
+
+widget(container_x, {
+  style: "ListItemFocusable";
+
+  onEvent(activate, {
+    $self.value = !$self.value;
+  });
+
+  widget(icon, {
+    alpha: $self.value;
+    source: "dataroot://resources/svg/Check.svg";
+    ListItemIconStyle();
+  });
+
+  widget(label, {
+    filterConstraintX: true;
+    caption: $self.metadata.title;
+    ListItemLabelStyle();
+  });
+});

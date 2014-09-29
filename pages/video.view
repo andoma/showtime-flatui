@@ -1,0 +1,130 @@
+delta($ui.fullwindow, isVisible());
+$self.directClose = 1;
+$self.close = $self.media.playstatus == "stop";
+
+
+#define OSD_ITEM(TITLE, ICON) {
+  widget(container_y, {
+    padding: 0.5em;
+    width: 6em;
+
+    focusable: true;
+
+    widget(icon, {
+      size: 3em;
+      source: ICON;
+    });
+    widget(label, {
+      align: center;
+      caption: TITLE;
+    });
+  });
+}
+
+
+
+widget(container_z, {
+
+  // --------------------------------------------
+  // --- Primary video display
+  // --------------------------------------------
+
+  widget(video, {
+    how: $self.how;
+    model: $self.openedFrom;
+    parentUrl: $self.parentUrl;
+    origin: $self.origin;
+    primary: true;
+    source: $self.source;
+    focusable: 0.1;
+  });
+
+  widget(container_y, {
+
+    widget(container_z, {
+
+      widget(quad, {
+        color: 0;
+        alpha: 0.8;
+      });
+
+      widget(cursor, {
+
+        widget(container_x, {
+          filterConstraintX: true;
+          spacing: 1em;
+          padding: 1em;
+          widget(image, {
+
+            aspectConstraint: true;
+            source: "http://image.tmdb.org/t/p/w185/eZW5Rv0peoGrC0RY12lwzoLPwmx.jpg";
+          });
+
+          widget(container_y, {
+            filterConstraintX: true;
+            spacing: 3;
+
+            widget(label, {
+              size: 1.5em;
+	      caption: $self.media.metadata.title;
+            });
+
+            widget(container_x, {
+              spacing: 0.5em;
+
+              widget(label, {
+                width: 3em;
+                caption: value2duration($global.media.current.currenttime);
+                align: right;
+              });
+              widget(container_y, {
+                align: center;
+                widget(container_z, {
+                  height: 3;
+
+                  widget(container_y, {
+                    padding: 1;
+                    widget(quad, {
+                      alpha: 0.3;
+                      additive: true;
+                    });
+                  });
+
+                  widget(clip, {
+
+                    clipping: [0, 0, 0.5,0];
+
+                    widget(quad, {
+                      alpha: 0.9;
+                      additive: true;
+                    });
+                  });
+                });
+              });
+              widget(label, {
+                width: 4em;
+                caption: value2duration($global.media.current.metadata.duration);
+
+              });
+            });
+            widget(container_x, {
+              OSD_ITEM("Subtitles", "dataroot://resources/svg/Script.svg");
+              OSD_ITEM("Audio",     "dataroot://resources/svg/Music.svg");
+              OSD_ITEM("Video",     "dataroot://resources/svg/Movie.svg");
+              OSD_ITEM("Info",      "dataroot://resources/svg/Info.svg");
+            });
+          });
+
+        });
+
+        widget(quad, {
+          alpha: 0.7;
+          additive: true;
+        });
+      });
+    });
+    space(3);
+  });
+});
+
+

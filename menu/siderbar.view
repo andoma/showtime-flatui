@@ -1,0 +1,46 @@
+
+#define SIDEBAR_SIZE { 12 em }
+
+
+
+
+
+
+widget(container_z, {
+
+  alpha: $view.sidebarFocused;
+  width: $view.sidebarFocused * SIDEBAR_SIZE;
+  $view.sidebarFocused = iir(delay(isFocused(), 0, 0.25) ||
+                             isHovered(), 4);
+
+  widget(quad, {
+    color: 0;
+    alpha: 0.2;
+  });
+
+  widget(list_y, {
+
+    spacing: 0.3em;
+
+    cloner($self.model.options, container_x, {
+
+      filterConstraintX: true;
+      layoutFixedWidth: true;
+      width: SIDEBAR_SIZE;
+
+      widget(loader, {
+        filterConstraintX: true;
+        time: 0.1;
+        effect: blend;
+	alt: "skin://items/list//default.view";
+	source: "skin://items/list/" + $self.type + ".view";
+        args: {
+          iconWidth = 1.5em;
+          rowSize = 1em;
+          focusWeight = 0.01;
+        };
+      });
+
+    });
+  });
+});

@@ -1,0 +1,46 @@
+setDefaultFont("/Users/andoma/private/fonts/condensed/RobotoCondensed-Regular.ttf");
+
+
+widget(container_z, {
+  widget(backdrop, {
+    zoffset: -1000;
+
+//    source: "showtime:pixmap:gradient:50,50,50:100,100,100";
+    source: "/Users/andoma/Downloads/air-4dd69d958f42c.jpg";
+//    source: "http://www.loopsbeats.com/images/music-wallpaper/free-music-wallpaper-01.jpg";
+//    source: "/Users/andoma/Downloads/11783-pink-floyd-1280x800-music-wallpaper.jpg";
+    color: 0.75;
+  });
+
+  widget(playfield, {
+    effect: blend;
+    noInitialTransform: true;
+
+    cloner($nav.pages, layer, {
+
+      widget(container_y, {
+
+        widget(label, {
+          align: topright;
+          caption: $page.model.type;
+        });
+
+        widget(label, {
+          align: topright;
+          caption: 1em;
+        });
+
+      });
+
+      widget(loader, {
+	time: 0.2;
+	noInitialTransform: true;
+	source: "skin://pages/" + $page.model.type + ".view";
+      });
+
+
+    });
+  });
+
+
+});

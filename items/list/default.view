@@ -1,0 +1,33 @@
+#import "skin://theme.view"
+
+
+widget(container_x, {
+
+  style: "ListItemFocusable";
+
+  onEvent(activate, navOpen($self.url, void, $self, $parent.model, void, $parent.url));
+
+  widget(icon, {
+    source:
+    "dataroot://resources/svg/" +
+      translate($self.type,  "File",
+		"archive",   "Archive",
+		"artist",    "User",
+		"directory", "Folder",
+		"dvd",       "Disc",
+		"playlist",  "List",
+		"video",     "Movie",
+		"album",     "Disc",
+		"load",      "Load",
+		"font",      "Font",
+		"image",     "Pictures"
+	       ) + ".svg";
+    ListItemIconStyle();
+  });
+
+  widget(label, {
+    filterConstraintX: true;
+    caption: $self.metadata.title;
+    ListItemLabelStyle();
+  });
+});

@@ -1,0 +1,40 @@
+
+widget(list_y, {
+
+  padding: 2em;
+
+  navWrap: true;
+
+  // --- List item styles
+
+  style(ListItemFocusable, {
+    focusable: true;
+    spacing: 0.5em;
+    padding: [1em, 0, 1em, 0];
+  });
+
+  style(ListIcon, {
+    width: 2em;
+    size: 1.5em;
+    align: center;
+  });
+
+  style(ListMultioptContainer, {
+    height: 5 * 1.5em;
+  });
+
+  style(MultioptItemFocusable, {
+    focusable: true;
+    spacing: 0.5em;
+    padding: [1em, 0, 1em, 0];
+  });
+
+  // -----------------------
+
+  cloner($self.model.nodes, loader, {
+    time: 0.1;
+    effect: blend;
+    alt: "skin://items/list/default.view";
+    source: "skin://items/list/" + $self.type + ".view";
+  });
+});
